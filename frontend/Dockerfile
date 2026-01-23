@@ -1,0 +1,3 @@
+FROM node:24.13.0
+
+WORKDIR /app

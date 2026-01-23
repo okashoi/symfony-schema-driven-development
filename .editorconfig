@@ -1,0 +1,38 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[{compose.yaml,compose.*.yaml}]
+indent_size = 2
+
+[*.php]
+indent_size = 4
+
+[*.xml{,.dist}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yaml,yml}]
+trim_trailing_whitespace = false
+
+[*.sh]
+indent_size = 4
+indent_style = tab
+
+[{,*.*}Dockerfile]
+indent_size = 4
+indent_style = tab
+
+[composer.{json,lock}]
+indent_size = 4
+
+[backend/src/config/{,*/}*.{yaml,yml}]
+indent_size = 4

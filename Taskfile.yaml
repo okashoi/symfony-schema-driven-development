@@ -1,0 +1,107 @@
+version: '3'
+
+vars:
+  RUN_FRONTEND: docker compose run --rm frontend
+  EXEC_FRONTEND: docker compose exec frontend
+  RUN_BACKEND: docker compose run --rm backend
+  EXEC_BACKEND: docker compose exec backend
+
+dotenv:
+  - ./.env
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    silent: true
+
+  install:
+      desc: アプリケーションをインストールする（git clone 後最初に実行する）
+      deps:
+        - task: up
+      cmds:
+        - task: backend:composer
+          vars:
+            CLI_ARGS: install
+        - task: frontend:npm
+          vars:
+            CLI_ARGS: install
+        - task: api-schema:generate-client
+
+  up:
+    desc: アプリケーションを起動する
+    preconditions:
+      - sh: test -f .env
+        msg: .envファイルを作成してください。
+    cmds:
+      - docker compose up -d --build
+
+  down:
+    desc: アプリケーションをシャットダウンする
+    cmds:
+      - docker compose down --remove-orphans
+
+  restart:
+    desc: アプリケーションを再起動する
+    cmds:
+      - task: down
+      - task: up
+
+  frontend:shell:
+    desc: frontend コンテナ内でシェルを開く
+    aliases:
+      - fsh
+    ignore_error: true
+    interactive: true
+    cmds:
+      - "{{.EXEC_FRONTEND}} bash"
+
+  frontend:npm:
+    desc: frontend コンテナ内で npm を実行する
+    aliases:
+      - npm
+    interactive: true
+    cmds:
+      - "{{.RUN_FRONTEND}} npm {{.CLI_ARGS}}"
+
+  backend:shell:
+    desc: "Open a shell in the backend container"
+    aliases:
+      - bsh
+    ignore_error: true
+    interactive: true
+    cmds:
+      - "{{.EXEC_BACKEND}} bash"
+
+  backend:console:
+    desc: backend コンテナ内で Symfony コンソールコマンドを実行する
+    aliases:
+      - symfony
+    interactive: true
+    cmds:
+      - "{{.RUN_BACKEND}} php bin/console {{.CLI_ARGS}}"
+
+  backend:composer:
+    desc: backend コンテナ内で Composer を実行する
+    aliases:
+      - composer
+    interactive: true
+    cmds:
+      - "{{.RUN_BACKEND}} composer {{.CLI_ARGS}}"
+
+  logs:
+    desc: Docker Compose サービスのログを表示する
+    silent: true
+    ignore_error: true
+    cmds:
+      - "docker compose logs -f {{.CLI_ARGS}}"
+
+  clean:
+    desc: インストールしたアプリケーションのクリーンアップを行う
+    cmds:
+      - docker compose down --volumes --rmi all --remove-orphans
+      - rm -rf frontend/node_modules
+      - rm -rf frontend/.next
+      - rm -rf backend/src/var
+      - rm -rf backend/src/vendor
+      - rm -rf backend/src/public/bundle
