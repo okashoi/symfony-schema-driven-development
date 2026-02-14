@@ -1,8 +1,17 @@
 parameters:
-    level: 6
+    level: max
     paths:
         - bin/
         - config/
         - public/
         - src/
         - tests/
+    ignoreErrors:
+        -
+            identifier: function.alreadyNarrowedType
+            count: 1
+            path: tests/bootstrap.php
+        -
+            identifier: argument.type
+            count: 1
+            path: public/index.php
