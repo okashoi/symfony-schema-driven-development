@@ -1,0 +1,5 @@
+framework:
+    serializer:
+        default_context:
+            datetime_format: 'c'
+            datetime_timezone: 'Asia/Tokyo'
