@@ -7,6 +7,7 @@ doctrine:
         logging: '%kernel.debug%'
         types:
             uuid: 'Symfony\Bridge\Doctrine\Types\UuidType'
+            datetimetz_immutable: 'MyLib\Doctrine\DBAL\Types\DateTimeTzImmutableType'
     orm:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
