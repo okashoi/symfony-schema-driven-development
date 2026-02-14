@@ -9,6 +9,7 @@ services:
       APP_SECRET: efa152377809f18bce1cd33ec342c4fe
       DEFAULT_URI: http://${LOCAL_IP}:${BACKEND_PORT}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      CORS_ALLOW_ORIGIN: '^http://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
     volumes:
       - ./backend/src:/var/www/html
     ports:
