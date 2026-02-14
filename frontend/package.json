@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "test": "jest --passWithNoTests",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . && prettier --check ./**/*.{js,jsx,ts,tsx}",
+    "lint:fix": "eslint . --fix && prettier --write ./**/*.{js,jsx,ts,tsx}"
   },
   "dependencies": {
     "next": "16.1.3",
