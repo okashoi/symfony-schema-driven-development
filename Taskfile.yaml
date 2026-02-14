@@ -47,6 +47,16 @@ tasks:
       - task: down
       - task: up
 
+  api-schema:dump:
+    desc: API スキーマのドキュメントを生成する
+    cmds:
+      - task: backend:console
+        vars:
+          CLI_ARGS: nelmio:apidoc:dump --format=yaml > ./generated/api-schema.yaml
+      -
+        cmd: echo "generated/api-schema.yaml にダンプしました。"
+        silent: true
+
   frontend:shell:
     desc: frontend コンテナ内でシェルを開く
     aliases:

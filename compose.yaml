@@ -12,6 +12,7 @@ services:
       CORS_ALLOW_ORIGIN: '^http://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
     volumes:
       - ./backend/src:/var/www/html
+      - ./generated:/api-schema
     ports:
       - ${LOCAL_IP}:${BACKEND_PORT}:80
     depends_on:
@@ -42,6 +43,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./frontend:/app
+      - ./generated:/api-schema
     ports:
       - "${LOCAL_IP}:${FRONTEND_PORT}:3000"
     depends_on:
