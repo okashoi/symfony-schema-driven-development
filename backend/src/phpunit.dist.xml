@@ -29,6 +29,7 @@
             restrictWarnings="true"
     >
         <include>
+            <directory>lib</directory>
             <directory>src</directory>
         </include>
 
