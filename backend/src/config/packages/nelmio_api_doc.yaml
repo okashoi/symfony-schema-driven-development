@@ -1,8 +1,11 @@
 nelmio_api_doc:
+    operation_id_generation: no_prepend
     documentation:
+        servers:
+            - url: '%env(DEFAULT_URI)%'
+              description: 開発環境
         info:
-            title: My App
-            description: This is an awesome app!
+            title: My Issue Tracker API
             version: 1.0.0
     areas: # to filter documented areas
         path_patterns:
