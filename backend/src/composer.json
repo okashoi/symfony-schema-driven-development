@@ -74,6 +74,18 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "test": [
+            "bin/phpunit"
+        ],
+        "analyze": [
+            "phpstan"
+        ],
+        "lint": [
+            "php-cs-fixer fix -v --dry-run"
+        ],
+        "format": [
+            "php-cs-fixer fix -v"
         ]
     },
     "conflict": {
