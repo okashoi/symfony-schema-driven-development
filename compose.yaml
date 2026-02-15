@@ -42,6 +42,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://${LOCAL_IP}:${BACKEND_PORT}
     volumes:
       - ./frontend:/app
       - ./generated:/api-schema
