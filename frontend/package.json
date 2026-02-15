@@ -9,7 +9,10 @@
     "test": "jest --passWithNoTests",
     "type-check": "tsc --noEmit",
     "lint": "eslint . && prettier --check ./**/*.{js,jsx,ts,tsx}",
-    "lint:fix": "eslint . --fix && prettier --write ./**/*.{js,jsx,ts,tsx}"
+    "lint:fix": "eslint . --fix && prettier --write ./**/*.{js,jsx,ts,tsx}",
+    "generate": "rm -rf ./lib/api-client/generated && npm run generate:types && npm run generate:zod",
+    "generate:types": "openapi-typescript ../api-schema/api-schema.yaml -o ./lib/api-client/generated/api.d.ts",
+    "generate:zod": "openapi-zod-client ../api-schema/api-schema.yaml -o ./lib/api-client/generated/zod-schemas.ts"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",

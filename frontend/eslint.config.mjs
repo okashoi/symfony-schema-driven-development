@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "lib/api-client/generated/**",
   ]),
   {
     files: ["**/*.{js,jsx,ts,tsx}"],

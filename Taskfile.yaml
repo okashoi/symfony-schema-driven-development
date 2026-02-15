@@ -57,6 +57,18 @@ tasks:
         cmd: echo "generated/api-schema.yaml にダンプしました。"
         silent: true
 
+  api-schema:generate-client:
+    desc: TypeScript API クライアントを生成する
+    deps:
+      - task: api-schema:dump
+    cmds:
+      - task: frontend:npm
+        vars:
+          CLI_ARGS: run generate
+      -
+        cmd: echo "TypeScript API クライアントを更新しました。"
+        silent: true
+
   frontend:shell:
     desc: frontend コンテナ内でシェルを開く
     aliases:
