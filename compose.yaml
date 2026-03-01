@@ -10,6 +10,7 @@ services:
       DEFAULT_URI: http://${LOCAL_IP}:${BACKEND_PORT}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
       CORS_ALLOW_ORIGIN: '^http://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+      API_SCHEMA_PATH: /api-schema/api-schema.yaml
     volumes:
       - ./backend/src:/var/www/html
       - ./generated:/api-schema
