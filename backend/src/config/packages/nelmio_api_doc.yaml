@@ -7,6 +7,15 @@ nelmio_api_doc:
         info:
             title: My Issue Tracker API
             version: 1.0.0
+        components:
+            securitySchemes:
+                session:
+                    type: apiKey
+                    in: cookie
+                    name: PHPSESSID
+                    description: Session cookie obtained from login
+        security:
+            - session: []
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
