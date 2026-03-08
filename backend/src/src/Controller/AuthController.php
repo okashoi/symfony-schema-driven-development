@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Controller\Error\Error;
 use App\Controller\Error\ValidationError;
+use App\Security\SecurityUser;
+use App\UseCase\Auth\GetMe\GetMeOutput;
 use App\UseCase\Auth\Login\InvalidCredentialsException;
 use App\UseCase\Auth\Login\LoginInput;
 use App\UseCase\Auth\Login\LoginUseCase;
@@ -23,6 +25,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('api/auth')]
@@ -31,6 +34,25 @@ class AuthController
     public function __construct(
         private readonly SerializerInterface $serializer,
     ) {
+    }
+
+    #[Route('/me', methods: ['GET'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Current user',
+        content: new OA\JsonContent(ref: new Model(type: GetMeOutput::class)),
+    )]
+    #[OA\Response(
+        response: 401,
+        description: 'Unauthorized',
+        content: new OA\JsonContent(ref: new Model(type: Error::class)),
+    )]
+    public function getMe(
+        #[CurrentUser] SecurityUser $user,
+    ): Response {
+        $output = new GetMeOutput(id: $user->getId(), name: $user->getUserIdentifier());
+
+        return JsonResponse::fromJsonString($this->serializer->serialize($output, 'json'));
     }
 
     #[Route('/signup', methods: ['POST'])]
